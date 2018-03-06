@@ -34,4 +34,3 @@ if($row['nama_lengkap'] == $nama_lengkap AND $row['pass'] == $pass AND $row['akt
 }
 ?>
 
-

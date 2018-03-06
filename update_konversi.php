@@ -29,23 +29,22 @@
 	<form action="proses_update_konversi.php" method="post"> 
 	<?php require 'head.php'; ?>
 	<div class="container mar">
+		<center>
+			<h1 class="display-4 text-warning">Update Data Konversi</h1>
+		</center>
 		<div class="row">
 			<div class="col">
 				<div class="card">
-					<div class="card-header">
-						<div class="card-title">
-							<h2>Update Konversi</h2>
-						</div>
-					</div>
 					<div class="card-block container">
 						<table class="table-sm">
+							<input type="text" name="id_konversi" class="form-control" hidden value="<?php echo $_GET['id_konversi'] ?>">
 							<tr>
 								<th>NIP</th>
-								<td><input type="text" class="form-control form-control-sm col-md-5" onkeyup="isi_otomatis()" name="nip" id="nip" required autofocus placeholder="NIP" value="<?php echo $row['nip'] ?>" maxlength="18" ></td>
+								<td><input type="text" class="form-control form-control-sm col-md-5" onkeyup="isi_otomatis()" name="nip" id="nip" required placeholder="NIP" value="<?php echo $row['nip'] ?>" maxlength="18" ></td>
 							</tr>
 							<tr>
 								<th>Nama</th>
-								<td><input type="text" name="nama" id="nama" class="form-control form-control-sm col-md-7" required autofocus placeholder="Refresh Halaman Jika Nama tidak muncul otomatis" value="<?php echo $row2['nama'] ?>" ></td>
+								<td><input type="text" name="nama" id="nama" class="form-control form-control-sm col-md-7" required placeholder="Refresh Halaman Jika Nama tidak muncul otomatis" value="<?php echo $row2['nama'] ?>" ></td>
 							</tr>
 							<tr style="border-top: solid 1px #ddd">
 								<th>Ralat SK</th>
@@ -152,52 +151,47 @@
 							<tr style="border-top: solid 1px #ddd">
 								<th>Keterangan</th>
 								<td><?php
-								if ($row['bahan_tidak_lengkap'] == 1) {
+								$pisah=explode(":", $row['keterangan']);
+								if (empty($pisah[1])){
+									$pisah[1] = "";
+								}
+								if ($row['keterangan'] == 1) {
 									$ket1 = "checked";
 								} else {
 									$ket1 = "";
 								}
-								if ($row['ralat_sapk'] == 1) {
+								if ($row['keterangan'] == 2) {
 									$ket2 = "checked";
 								} else {
 									$ket2 = "";
 								}
-								if ($row['ralat_belum_cetak'] == 1) {
+								if ($row['keterangan'] == 3) {
 									$ket3 = "checked";
 								} else {
 									$ket3 = "";
 								}
-								if ($row['cetak'] == 1) {
+								if ($row['keterangan'] == 4) {
 									$ket4 = "checked";
 								} else {
 									$ket4 = "";
 								}
-								if ($row['ambil'] == 1) {
-									$ket5 = "checked";
-								} else {
-									$ket5 = "";
-								}
 									?>
-									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="bahan_tidak_lengkap" type="checkbox" value="1" id="Check31" <?php echo $ket1 ?>>
-										<label class="custom-control-label" for="Check31">Bahan tidak lengkap</label>
-										<input type="text" class="col-md-7 form-control form-control-sm" name="keterangan" value="<?php echo $row['keterangan']; ?>"><br>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" name="keterangan" type="radio" value="1" id="o31" <?php echo $ket1 ?>>
+										<label class="custom-control-label" for="o31">Bahan tidak lengkap</label>
+										<input type="text" class="col-md-7 form-control form-control-sm" id="ket2" name="keterangan2" value="<?php echo $pisah[1]; ?>"><br>
 									</div>
-									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="ralat_sapk" type="checkbox" value="1" id="Check32" <?php echo $ket2 ?>>
-										<label class="custom-control-label" for="Check32">Ralat SAPK</label><br>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" name="keterangan" type="radio" value="2" id="o32" <?php echo $ket2 ?>>
+										<label class="custom-control-label" for="o32">Ralat SAPK</label><br>
 									</div>
-									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="ralat_belum_cetak" type="checkbox" value="1" id="Check33" <?php echo $ket3 ?>>
-										<label class="custom-control-label" for="Check33">Ralat belum cetak</label><br>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" name="keterangan" type="radio" value="3" id="o33" <?php echo $ket3 ?>>
+										<label class="custom-control-label" for="o33">Ralat belum cetak</label><br>
 									</div>
-									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="cetak" type="checkbox" value="1" id="Check34" <?php echo $ket4 ?>>
-										<label class="custom-control-label" for="Check34">Cetak</label><br>
-									</div>
-									<div class="custom-control custom-checkbox">
-										<input class="custom-control-input" name="ambil" type="checkbox" value="1" id="Check35" <?php echo $ket5 ?>>
-										<label class="custom-control-label" for="Check35">Ambil</label><br>
+									<div class="custom-control custom-radio">
+										<input class="custom-control-input" name="keterangan" type="radio" value="4" id="o34" <?php echo $ket4 ?>>
+										<label class="custom-control-label" for="o34">Cetak</label><br>
 									</div>
 								</td>
 							</tr>
@@ -205,7 +199,7 @@
 					</div>
 						<div class="card-footer">
 							<div class="btn-group btn-group-sm">
-								<a href="welcome.php" class="btn btn-warning"><i class="fa fa-arrow-left"></i>Return</a>
+								<a onclick="window.history.go(-1)" class="btn btn-warning"><i class="fa fa-arrow-left"></i>Return</a>
 								<input type="submit" name="submit" value="Update" class=" btn btn-success">
 							</div>
 						</div>
@@ -215,27 +209,51 @@
 		</div>
 	</form>
 	</div>
-<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="js/jquery-2.2.4.min.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-			function isi_otomatis(){
-				var nip = $("#nip").val();
-				$.ajax({
-					url: 'ajax.php',
-					data:"nip="+nip ,
-				}).success(function (data) {
-					var json = data,
-					obj = JSON.parse(json);
-					$('#nama').val(obj.nama);
-				});
-			}
-</script>
-<script>
-$(document).ready(function(){
-    $('#rad').click(function() {
-   		if($('#rad').is(':checked')) { $("#check").prop( "disabled", true ); }
-    });
-});
+	function isi_otomatis(){
+		var nip = $("#nip").val();
+		$.ajax({
+			url: 'ajax.php',
+			data:"nip="+nip ,
+		}).success(function (data) {
+			var json = data,
+			obj = JSON.parse(json);
+			$('#nama').val(obj.nama);
+		});
+	}
+	$(document).ready(function(){
+		event.preventDefault();
+		$('#option1').click(function() {
+			if($('#option1').is(':checked')) { $("#Check23").prop( "disabled", false ) && $("#Check25").prop( "disabled", true ) && $("#Check24").prop( "disabled", false ) && $("#Check25").prop( "checked", false ) ; }
+		});
+		$('#option2').click(function() {
+			if($('#option2').is(':checked')) { $("#Check23").prop( "disabled", true ) && $("#Check25").prop( "disabled", true ) && $("#Check23").prop( "checked", false ) && $("#Check25").prop( "checked", false ) ; }
+		});
+		$('#option3').click(function() {
+			if($('#option3').is(':checked')) { $("#Check23").prop( "disabled", false ) && $("#Check25").prop( "disabled", true ) && $("#Check24").prop( "disabled", false ) && $("#Check25").prop( "checked", false ); }
+		});
+		$('#option4').click(function() {
+			if($('#option4').is(':checked')) { $("#Check23").prop( "disabled", false ) && $("#Check25").prop( "disabled", true ) && $("#Check24").prop( "disabled", false ) && $("#Check25").prop( "checked", false ); }
+		});
+		$('#option5').click(function() {
+			if($('#option5').is(':checked')) { $("#Check24").prop( "disabled", true ) && $("#Check25").prop( "disabled", false ) && $("#Check23").prop( "disabled", false ) && $("#Check24").prop( "checked", false ) ; }
+		});
+
+		$('#o31').click(function() {
+			if($('#o31').is(':checked')) { $("#ket2").focus(); }
+		});
+		$('#o32').click(function() {
+			if($('#o32').is(':checked')) { $("#ket2").val(""); }
+		});
+		$('#o33').click(function() {
+			if($('#o33').is(':checked')) { $("#ket2").val(""); }
+		});
+		$('#o34').click(function() {
+			if($('#o34').is(':checked')) { $("#ket2").val(""); }
+		});
+	});
 </script>
 </form>
 </body>

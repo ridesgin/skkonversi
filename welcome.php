@@ -1,3 +1,4 @@
+
 <?php
 include 'koneksi.php';
 session_start();
@@ -25,17 +26,15 @@ if($_SESSION['status'] !="login"){
 		<img src="images/logo.png" class="logo animate" alt="logo">
 		<hr class="col-md-6">
 		<h2 class="lead" style="text-align: center;">Kantor Regional 1 Badan Kepagawaian Negara</h2>
-			<div class="row">
-				<div class="col">
-					<a href="surat_pengantar.php" class="btn btn-outline-secondary btn-block btn-lg">Surat Pengantar</a>
-				</div>
-				<div class="col">
-					<a href="#" class="btn btn-outline-secondary btn-block btn-lg">Konversi</a>
-				</div>
+		<h2 class="lead" style="text-align: center;">YOGYAKARTA</h2>
+		<div class="row">
+			<div class="col">
+				<a href="surat_pengantar.php" class="btn btn-outline-danger btn-block btn-lg">Surat Pengantar</a>
 			</div>
+		</div>
 	</div>
 </div>
-<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

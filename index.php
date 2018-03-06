@@ -1,4 +1,3 @@
-
 <html>
 <head>
 	<title>- MASUK -</title>
@@ -16,7 +15,7 @@
 		<h1 class="animate text-white" style="margin-top:5rem;">SK konversi NIP</h1>
 		<i class="fa fa-user-circle-o f-fading text-white" style="font-size: 10em"></i>
 		<h1 class="h3 mb-3 font-weight-normal f-opacity text-white">Masuk</h1>
-		<input id="nama_lengkap" type="username" class="form-control" name="nama_lengkap" placeholder="Nama Lengkap" required autofocus>
+		<input id="nama_lengkap" type="username" class="form-control" name="nama_lengkap" placeholder="Nama Lengkap" autocomplete="off" required autofocus>
 		<input id="pass" type="password" class="form-control" name="pass" placeholder="Password" required autofocus>
 		<input type="checkbox" onclick="myFunction()" id="passw">
 		<label for="passw" class="text-white"> Tampilkan Password</label>
@@ -33,7 +32,6 @@ function myFunction() {
 	}
 }
 </script>
-<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-<script src="js/bootstrap.js" type="text/javascript"></script>
+<script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
 </body>
-</html>
