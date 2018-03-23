@@ -47,7 +47,7 @@
 		</div>
 	</div>
 </body>
-<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="js/jquery-2.2.4.min.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	function isi_otomatis(){

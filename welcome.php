@@ -16,26 +16,28 @@ if($_SESSION['status'] !="login"){
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="css/datepicker.min.css" rel="stylesheet" type="text/css">
+	<link href="css/select2.min.css" rel="stylesheet" type="text/css">
 </head>
 	<body style="overflow: hidden;">
 	<?php include 'head.php';?>
 	<div class="container">
-	<div class="jumbotron" style="margin-top: 8%;">
-		<h2 class="display-4 typewriter" style="text-align: center;">SELAMAT DATANG DI APLIKASI SK KONVERSI NIP</h2>
-		<img src="images/logo.png" class="logo animate" alt="logo">
-		<hr class="col-md-6">
-		<h2 class="lead" style="text-align: center;">Kantor Regional 1 Badan Kepagawaian Negara</h2>
+		<div style="margin-top: 8%;">
+			<h2 class="display-4 typewriter" style="text-align: center;">SELAMAT DATANG DI APLIKASI SK KONVERSI NIP</h2>
+			<img src="images/logo.png" class="logo animate" alt="logo">
+			<hr class="col-md-6">
+			<h2 class="lead" style="text-align: center;">Kantor Regional 1 Badan Kepagawaian Negara</h2>
+			<h2 class="lead" style="text-align: center;">YOGYAKARTA</h2>
 			<div class="row">
 				<div class="col">
-					<a href="surat_pengantar.php" class="btn btn-outline-secondary btn-block btn-lg">Surat Pengantar</a>
-				</div>
-				<div class="col">
-					<a href="#" class="btn btn-outline-secondary btn-block btn-lg">Konversi</a>
+					<a href="surat_pengantar.php" class="btn btn-secondary btn-block btn-lg">Surat Pengantar</a>
 				</div>
 			</div>
+		</div>
 	</div>
-</div>
-<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/datepicker.js"></script>
+<script src="js/bootstrap.bundle.js" type="text/javascript"></script>
+<script src="js/select2.min.js" type="text/javascript"></script>
 </body>
 </html>

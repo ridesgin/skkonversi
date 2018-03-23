@@ -15,9 +15,10 @@ if (isset ($_POST['submit'])) {
 		$jml_usulan		= $_POST['jml_usulan'];
 
 		//$tgl_input 		= date("Y-m-d");
-
+		$hasil = $connect->query("SELECT * FROM instansi WHERE nama_instansi = '$id_instansi'");
+		$res = $hasil->fetch_assoc();
 		$sql = $connect->prepare("INSERT INTO pengantar (kode_tamu, no_surat, tgl_surat, id_instansi, nip_spesimen, jml_usulan) VALUES (?,?,?,?,?,?)");
-		$sql->bind_param('issiii', $kode_tamu, $no_surat, $tgl_surat, $id_instansi, $nip_spesimen, $jml_usulan);
+		$sql->bind_param('sssiii', $kode_tamu, $no_surat, $tgl_surat, $res['id_instansi'], $nip_spesimen, $jml_usulan);
 		$sql->execute();
 		$sql->close();
 		print"

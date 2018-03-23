@@ -1,0 +1,23 @@
+.kotak{
+	margin-top: 50px;
+}
+bgcolor {
+	background-color:LightGray;
+}
+
+body { 
+            background: url("img/bg.png") repeat 0 0;
+			background-color:LightGray;
+        }
+
+        body { 
+            background: url("../img/bg.png") repeat 0 0;
+        }
+
+        body { 
+            background-image: url("../img/bg.png") repeat 0 0;
+}
+
+.icon {
+    background: url(../image/logo.png) repeat;	
+}

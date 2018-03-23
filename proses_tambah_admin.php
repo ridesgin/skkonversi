@@ -5,7 +5,7 @@
 	header("location:warn.php");
 }
 ?>
-<html>
+<!-- <html>
 <head>
 	<title>Input Konversi | SK Konversi NIP</title>
 	<meta charset="utf-8">
@@ -24,14 +24,14 @@
 <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 </body>
-</html>
+</html> -->
 <?php
-$res = mysqli_query($connect, "SELECT * FROM pengguna");
-$hasil = mysqli_num_rows($res);
+$res = mysqli_query($connect, "SELECT * FROM pengguna ORDER BY uid DESC");
+$hasil = $res->fetch_assoc();
 if(isset($_POST['submit']))
 {
 	try{
-		$uid			= $hasil + 1;
+		$uid			= $hasil['uid'] + 1;
 		$nama_lengkap	= $_POST['nama_lengkap'];
 		$pass 			= mysqli_real_escape_string($connect, $_POST['pass']);
 		$nip 			= $_POST['nip'];

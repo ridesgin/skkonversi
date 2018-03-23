@@ -13,11 +13,11 @@
 	<meta name="author" content="">
 	<link rel="icon" href="favicon.ico">
 	<title>SK Konversi</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
-	<style>
-		body, html {height: 100%}
-	</style>
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="css/datepicker.min.css" rel="stylesheet" type="text/css">
+	<link href="css/select2.min.css" rel="stylesheet" type="text/css">
 </head>
 <body class="text-center">
 	<div class="bgimg">
@@ -30,6 +30,9 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/datepicker.js"></script>
+<script src="js/bootstrap.bundle.js" type="text/javascript"></script>
+<script src="js/select2.min.js" type="text/javascript"></script>
 </body>
 </html>

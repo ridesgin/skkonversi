@@ -12,10 +12,12 @@ if($_SESSION['status'] !="login"){
 	<meta charset=utf-8>
 	<meta name=description content="">
 	<meta name=viewport content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="icon" href="favicon.ico">
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="css/datepicker.min.css" rel="stylesheet" type="text/css">
+	<link href="css/select2.min.css" rel="stylesheet" type="text/css">
 </head>
 	<?php require 'head.php'; ?>
 	<div class="container-fluid mar">
@@ -144,8 +146,10 @@ if($_SESSION['status'] !="login"){
 	</div>
 	</div>
 	</div>
-	<script src="js/jquery-1.11.3.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/datepicker.js"></script>
+<script src="js/bootstrap.bundle.js" type="text/javascript"></script>
+<script src="js/select2.min.js" type="text/javascript"></script>
 	<script>
 		function tanya() {
 	if (confirm("Apakah anda ingin hapus data ini ?")){
