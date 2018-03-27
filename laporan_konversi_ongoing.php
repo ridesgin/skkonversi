@@ -8,7 +8,7 @@ if($_SESSION['status'] !="login"){
 
 <html>
 <head>
-	<title>Input Data Surat Tamu | SK konversi NIP</title>
+	<title>Laporan Konversi (ongoing) | SK konversi NIP</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +24,7 @@ if($_SESSION['status'] !="login"){
 		<h1 class="display-4 text-center my-2">Daftar Surat Pengantar</h1>
 		<div class="card">
 			<div class="card-header">
-				<a href="input_surat_pengantar.php" class="btn btn-success float-right"><i class="fa fa-plus"></i> Tambah surat pengantar</a>
+				<!-- <a href="input_surat_pengantar.php" class="btn btn-success float-right"><i class="fa fa-plus"></i> Tambah surat pengantar</a> -->
 				<?php
 				//includekan fungsi paginasi
 				//silahkan di komen atau di hapus saja baris yang tidak ingin digunakan
@@ -102,13 +102,16 @@ if($_SESSION['status'] !="login"){
 								$dataa = mysqli_num_rows($sqli);
 								if ($dataa == $data['jml_usulan']){
 									$woy = "table-info";
+									$woy2 = "hidden";
 								} elseif($dataa == 0){
 									$woy = "table-danger";
+									$woy2 = "hidden";
 								} else {
 									$woy = "table-warning";
+									$woy2 = "";
 								}
 								?>
-								<tr class="<?php echo $woy ?>">
+								<tr class="<?php echo $woy ?>" <?php echo $woy2 ?>>
 									<td class="text-center">
 										<?php echo ++$no_urut?> 
 									</td>

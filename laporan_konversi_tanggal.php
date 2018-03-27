@@ -8,7 +8,7 @@ if($_SESSION['status'] !="login"){
 
 <html>
 <head>
-	<title>Laporan Konversi NIP perbulan | SK konversi NIP</title>
+	<title>Laporan Konversi NIP Pertanggal NIP | SK konversi NIP</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,7 +28,7 @@ if($_SESSION['status'] !="login"){
 	<div class="card">
 		<div class="card-header">
 			<?php
-			include 'pagination_bulan.php';
+			include 'pagination_tanggal.php';
 
 	//      pagination config start
 			$q = isset($_REQUEST['q']) ? urldecode($_REQUEST['q']) : ''; // untuk keyword pencarian
@@ -37,9 +37,8 @@ if($_SESSION['status'] !="login"){
 			$rpp = 10; // jumlah record per halaman
 
 			$db_link = mysqli_connect('localhost', 'root', '', 'mydb'); // sesuaikan username dan password mysqli anda
-			$bulan = $_GET['bulan'];
-			$tahun = $_GET['tahun'];
-			$sql = "SELECT * FROM konversi WHERE nip LIKE '%$q%' AND MONTH(tgl_input)='$bulan' AND YEAR(tgl_input)='$tahun' ORDER BY id_konversi DESC"; // query pencarian silahkan disesuaikan
+			$tanggal= $_GET['tanggal'];
+			$sql = "SELECT * FROM konversi WHERE nip LIKE '%$q%' AND tgl_input='$tanggal' ORDER BY id_konversi DESC"; // query pencarian silahkan disesuaikan
 			$result = mysqli_query($db_link, $sql); // eksekusi query
 
 			$tcount = mysqli_num_rows($result); // jumlah total baris
@@ -49,32 +48,6 @@ if($_SESSION['status'] !="login"){
 			$no_urut = ($page - 1) * $rpp; // nomor urut
 			$reload = $_SERVER['PHP_SELF'] . "?q=" . $q . "&amp;adjacents=" . $adjacents; // untuk link ke halaman lain
 	//        pagination config end
-
-			if ($_GET['bulan']=='01') {
-				$bulan = "Januari";
-			}elseif ($_GET['bulan']=='02') {
-				$bulan = "Pebruari";
-			}elseif ($_GET['bulan']=='03') {
-				$bulan = "Maret";
-			}elseif ($_GET['bulan']=='04') {
-				$bulan = "April";
-			}elseif ($_GET['bulan']=='05') {
-				$bulan = "Mei";
-			}elseif ($_GET['bulan']=='06') {
-				$bulan = "Juni";
-			}elseif ($_GET['bulan']=='07') {
-				$bulan = "Juli";
-			}elseif ($_GET['bulan']=='08') {
-				$bulan = "Agustus";
-			}elseif ($_GET['bulan']=='09') {
-				$bulan = "September";
-			}elseif ($_GET['bulan']=='10') {
-				$bulan = "Oktober";
-			}elseif ($_GET['bulan']=='11') {
-				$bulan = "November";
-			}else {
-				$bulan = "Desember";
-			}
 			//tanggal :v
 			/*if (isset($_GET['tanggal_awal'])) {
 				$tanggal_awal	= $_GET['tanggal_awal'];
@@ -83,20 +56,26 @@ if($_SESSION['status'] !="login"){
 			}*/
 			?>
 			<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
-				<div class="input-group col-4">
-					<input type="text" class="form-control" placeholder="Cari berdasarkan NIP" name="q" value="<?php echo $q ?>">
-					<div class="input-group-append">
-						<?php
-						if ($q <> '')
-						{
-							?>
-							<a class="btn btn-warning" href="<?php echo $_SERVER['PHP_SELF'] ?>">Reset <i class="fa fa-times"></i></a>
-							<?php
-						}
-						?>
-						<button class="btn btn-primary" type="submit">Cari <i class="fa fa-search"></i></button>
+				<div class="row">
+					<div class="col-4">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Cari berdasarkan NIP" name="q" value="<?php echo $q ?>">
+							<div class="input-group-append">
+								<?php
+								if ($q <> '')
+								{
+									?>
+									<a class="btn btn-warning" href="<?php echo $_SERVER['PHP_SELF'] ?>">Reset <i class="fa fa-times"></i></a>
+									<?php
+								}
+								?>
+								<button class="btn btn-primary" type="submit">Cari <i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</div><div class="col">
+						<strong class="float-right">Laporan per tanggal <?php echo $tanggal;?></strong>
 					</div>
-				</div><strong class="float-right">Laporan per bulan <?php echo $bulan;?> Tahun <?php echo $_GET['tahun'];?></strong>
+				</div>
 			</form>
 
 		</div>

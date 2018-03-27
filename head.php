@@ -1,5 +1,5 @@
 <body id="bg" onload="startTime()">
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top justify-content-end bg-oi  navbar-light bg-light rounded">
+	<nav class="navbar navbar-expand-lg fixed-top justify-content-end bg-oi navbar-light bg-light rounded">
 		<div class="container-fluid">
 			<a class="btn btn-raised btn-link bg-light" onclick="window.location='welcome.php'"><img src="images/head.png" style="width: 5rem;"></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

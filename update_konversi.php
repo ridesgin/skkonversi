@@ -24,10 +24,21 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link href="css/datepicker.min.css" rel="stylesheet" type="text/css">
 	<link href="css/select2.min.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+		.garisv{
+			border-left: 1px solid rgba(0, 0, 0, 0.1);
+   			height: 18%;
+		}
+		.garish{
+			margin: 0.5rem 0;
+			border: 0;
+  			border-top: 1px solid rgba(0, 0, 0, 0.1);
+		}
+	</style>
 </head>
 	<form action="proses_update_konversi.php" method="post" class="needs-validation" novalidate> 
 	<?php require 'head.php'; ?>
-	<div class="container mar">
+	<div class="container mar col-8">
 		<center>
 			<h1 class="display-4 text-warning">Update Data Konversi</h1>
 		</center>
@@ -35,19 +46,26 @@
 			<div class="col">
 				<div class="card">
 					<div class="card-block container">
-						<table class="table-sm">
-							<input type="text" name="id_konversi" class="form-control" hidden value="<?php echo $_GET['id_konversi'] ?>">
-							<tr>
-								<th>NIP</th>
-								<td><input type="text" min="0" step="1" class="form-control form-control-sm col-md-5" onkeyup="isi_otomatis()" name="nip" id="nip" placeholder="NIP" value="<?php echo $row['nip'] ?>" pattern="^[0-9]{18,18}$" required title="Minimal 18 karakter" maxlength="18" ></td>
-							</tr>
-							<tr>
-								<th>Nama</th>
-								<td><input type="text" name="nama" id="nama" class="form-control form-control-sm col-md-7" required placeholder="Refresh Halaman Jika Nama tidak muncul otomatis" value="<?php echo $row['nama'] ?>" ></td>
-							</tr>
-							<tr style="border-top: solid 1px #ddd">
-								<th>Ralat SK</th>
-								<td><?php
+						<div class="row">
+							<div class="col">
+								<input type="text" name="id_konversi" class="form-control" hidden value="<?php echo $_GET['id_konversi'] ?>">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<label>NIP</label>
+								<input type="text" min="0" step="1" class="form-control form-control-sm col-md-5" onkeyup="isi_otomatis()" name="nip" id="nip" placeholder="NIP" value="<?php echo $row['nip'] ?>" pattern="^[0-9]{18,18}$" required title="Minimal 18 karakter" maxlength="18" >
+							</div>
+							<div class="col">
+								<label>Nama</label>
+								<input type="text" name="nama" id="nama" class="form-control form-control-sm col-md-7" required placeholder="Refresh Halaman Jika Nama tidak muncul otomatis" value="<?php echo $row['nama'] ?>" >
+							</div>
+						</div>
+						<div class="garish"></div>
+						<div class="row">
+							<div class="col">
+								<label>Ralat SK</label>
+								<?php
 									if ($row['jenis_ralat'] == 1) {
 										$check1 = "checked";
 									} else {
@@ -94,11 +112,11 @@
 										<input class="custom-control-input" type="radio" name="jenis_ralat" value="5" id="option5" <?php echo $check5 ?>>
 										<label class="custom-control-label" for="option5">Cetak ulang / kehilangan konversi nip(syarat 1,2,3,5)</label><br>
 									</div>
-								</td>
-							</tr>
-							<tr style="border-top: solid 1px #ddd">
-								<th>Kelengkapan</th>
-								<td><?php
+							</div>
+							<div class="garisv"></div>
+							<div class="col">
+								<label>Kelengkapan</label>
+								<?php
 								if ($row['sk_cpns'] == 1) {
 									$kel1 = "checked";
 								} else {
@@ -145,11 +163,41 @@
 										<input class="custom-control-input" type="checkbox" name="surat_kehilangan" value="1" id="Check25" <?php echo $kel5 ?>>
 										<label class="custom-control-label" for="Check25">Surat kehilangan asli dari kepolisian</label><br>
 									</div>
-								</td>
-							</tr>
-							<tr style="border-top: solid 1px #ddd">
-								<th>Keterangan</th>
-								<td><?php
+							</div>
+						</div>
+						<div class="garish"></div>
+						<div class="row">
+							<div class="col">
+								<label>Data Sebelum</label>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control form-control-sm" name="data_sebelum" value="<?php echo $row['data_sebelum'] ?>">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div class="col">
+								<label>Data Sesudah</label>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control form-control-sm" name="data_sesudah" value="<?php echo $row['data_sesudah'] ?>">
+							</div>
+						</div>
+						<div class="garish"></div>
+						<div class="row mb-2">
+							<div class="col-2">
+								<label for="keterangan">Keterangan</label>
+							</div>
+							<div class="col">
+								<textarea class="form-control form-control-sm" name="keterangan"><?php echo $row['keterangan'] ?></textarea>
+							</div>
+						</div>
+						<!-- <div class="garish"></div>
+						<div class="row">
+							<div class="col-3">
+								<label>Keterangan proses</label>
+							</div>
+							<div class="col">
+								<?php
 								$pisah=explode(":", $row['keterangan']);
 								if (empty($pisah[1])){
 									$pisah[1] = "";
@@ -192,13 +240,12 @@
 										<input class="custom-control-input" name="keterangan" type="radio" value="4" id="o34" <?php echo $ket4 ?>>
 										<label class="custom-control-label" for="o34">Cetak</label><br>
 									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
+								</div>
+							</div> -->
+						</div>
 						<div class="card-footer">
 							<div class="btn-group btn-group-sm">
-								<a onclick="window.history.go(-1)" class="btn btn-warning"><i class="fa fa-arrow-left"></i>Return</a>
+								<a onclick="window.history.go(-1)" class="btn btn-warning"><i class="fa fa-arrow-left"></i>Kembali</a>
 								<input type="submit" name="submit" value="Update" class=" btn btn-success">
 							</div>
 						</div>

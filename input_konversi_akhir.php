@@ -57,7 +57,7 @@ if ($result['jenis_ralat'] == 1){
 								<label class="form-control-label">Nama</label>
 							</div>
 							<div class="col-md-5">
-								<input type="text" class="form-control form-control-sm" name="nama" value="<?php echo $result['nama'] ?>">
+								<input type="text" class="form-control form-control-sm" name="nama" value="<?php echo $result['nama'] ?>" readonly>
 							</div>
 						</div>
 						<div class="row">
@@ -65,7 +65,7 @@ if ($result['jenis_ralat'] == 1){
 								<label class="form-control-label">NIP</label>
 							</div>
 							<div class="col-3">
-								<input type="text" maxlength="18" pattern="^[0-9]{18,18}$" title="max 18 karakter dan berupa angka" class="form-control form-control-sm" name="nip" value="<?php echo $result['nip'] ?>">
+								<input type="text" maxlength="18" pattern="^[0-9]{18,18}$" title="max 18 karakter dan berupa angka" class="form-control form-control-sm" name="nip" value="<?php echo $result['nip'] ?>" readonly>
 							</div>
 						</div>
 						<div class="row my-2">
@@ -73,7 +73,7 @@ if ($result['jenis_ralat'] == 1){
 								<label class="form-control-label">Jenis Ralat</label>
 							</div>
 							<div class="col-md-3">
-								<input type="text" class="form-control form-control-sm" name="jenis_proses" value="<?php echo $jenis_ralat ?>">
+								<input type="text" class="form-control form-control-sm" name="jenis_proses" value="<?php echo $jenis_ralat ?>" readonly>
 							</div>
 						</div>
 						<div class="row">
@@ -129,6 +129,59 @@ if ($result['jenis_ralat'] == 1){
 			</div>
 		</div>
 	</form>
+	
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-block">
+				<div class="table-responsive">
+					<table class="table-sm">
+						<tr class="bg-dark text-white" style="height: 30px;">
+							<td>NO</td>
+							<td>Tanggal</td>
+							<td>Aksi</td>
+							<td>Keterangan</td>
+							<td>Petugas</td>
+							<td width="5%">Aksi</td>
+						</tr>
+						<?php
+						$query = $connect->query("SELECT *,pengguna.uid, pns.nama FROM proses_konversi INNER JOIN pengguna ON pengguna.uid = proses_konversi.uid1 INNER JOIN pns ON pns.nip = pengguna.nip WHERE proses_konversi.id_konversi = $id_konversi");
+						$no = 1;
+						/*$query2 = $connect->query("SELECT *, pns.nama FROM pengguna INNER JOIN pns ON pengguna.nip = pengguna.nip WHERE pengguna.uid =" . $row2['uid1']);
+						$res2 = $query2->fetch_assoc();*/
+						foreach ($query as $row2) {
+
+							
+						?>
+						<tr>
+							<td><?php echo $no++ ?></td>
+							<td><?php echo $row2['tgl_proses'] ?></td>
+							<td><?php $row2['jenis_proses'];
+								if (is_null($row2['jenis_proses'])){
+									echo "";
+								} elseif ($row2['jenis_proses'] == 0){
+									echo "Bahan tidak Lengkap : " . $res2['keterangan'];
+								} elseif ($row2['jenis_proses'] == 1){
+									echo "Ralat SAPK";
+								} elseif ($row2['jenis_proses'] == 2){
+									echo "Ralat Belum Cetak";
+								} else {
+									echo "Cetak";
+								};
+								?></td>
+							<td><?php echo $row2['keterangan'] ?></td>
+							<td><?php echo $row2['nama'] ?></td>
+							<td>
+								<?php
+									echo "<a href='hapus_konversi.php?id_proses=" .$row2['id_proses']. "' onClick='return tanya()' class='btn btn-danger'>Hapus <i class='fa fa-trash'></i></a>";									
+								?>
+							</td>
+						</tr>
+						<?php } ?>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 <script src="js/jquery.js" type="text/javascript"></script>
 <script src="js/datepicker.js"></script>
 <script src="js/bootstrap.bundle.js" type="text/javascript"></script>
@@ -137,6 +190,13 @@ if ($result['jenis_ralat'] == 1){
 	$(document).ready(function() {
     $('.dropoi').select2();
 	});
+		function tanya() {
+	if (confirm("Apakah anda ingin hapus data ini ?")){
+		return true;
+	} else {
+		return false;
+	}
+	}
 	</script>
 </body>
 </html>

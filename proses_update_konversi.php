@@ -20,14 +20,15 @@ if (isset($_POST['submit'])) {
 		} else {
 			$keterangan	= $_POST['keterangan'] . ":".  $_POST['keterangan2'];
 		}
-		
+		$data_sebelum		= $_POST['data_sebelum'];
+		$data_sesudah		= $_POST['data_sesudah'];
 		$tgl_input 				= date("Y-m-d");
 
-		$sql = $connect->prepare("UPDATE konversi SET nip = ?, jenis_ralat = ?, sk_cpns = ?, sk_terakhir = ?, ijazah = ?, sk_konversi = ?, surat_kehilangan = ?, keterangan = ?, uid = ? WHERE id_konversi = $id_konversi");
-		$sql->bind_param('isssssssi', $nip, $jenis_ralat, $sk_cpns, $sk_terakhir, $ijazah, $sk_konversi, $surat_kehilangan, $keterangan, $uid);
+		$sql = $connect->prepare("UPDATE konversi SET nip = ?, jenis_ralat = ?, sk_cpns = ?, sk_terakhir = ?, ijazah = ?, sk_konversi = ?, surat_kehilangan = ?, keterangan = ?, data_sebelum = ?, data_sesudah = ?, uid = ? WHERE id_konversi = $id_konversi");
+		$sql->bind_param('isssssssssi', $nip, $jenis_ralat, $sk_cpns, $sk_terakhir, $ijazah, $sk_konversi, $surat_kehilangan, $keterangan, $data_sebelum, $data_sesudah, $uid);
 		$sql->execute();
 		$sql->close();
-		print"<script>alert(\" Berhasil Update \");history.back(-3);</script>";
+		print"<script>alert(\" Berhasil Update \");history.go(-2);</script>";
 	}catch(Exception $e){
 		echo $e->getMessage();
 	}
