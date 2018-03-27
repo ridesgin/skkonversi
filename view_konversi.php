@@ -34,7 +34,14 @@ if($_SESSION['status'] !="login"){
 
 			<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
 				<div class="card-body">
-					Belum selesai
+					<div class="row">
+						<div class="col">
+							<a href="laporan_konversi_ongoing.php" class="btn btn-warning btn-block">Ongoing</a>
+						</div>
+						<div class="col">
+							<a href="laporan_konversi_kosong.php" class="btn btn-danger btn-block">Masih Kosong</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -48,9 +55,11 @@ if($_SESSION['status'] !="login"){
 			</div>
 			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 				<div class="card-body">
-					<input type="date" class="form-control col-5">
-					<hr>
-					<button type="submit" class="btn btn-primary">Cek</button>
+					<form method="get" action="laporan_konversi_tanggal.php">
+						<input type="text" class="form-control col-3 datepicker-here" data-position="right top" name="tanggal" value="<?php echo date("Y-m-d"); ?>" required>
+						<hr>
+						<button type="submit" class="btn btn-primary">Cek</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -96,7 +105,7 @@ if($_SESSION['status'] !="login"){
 							<option value="12">Desember</option>
 						</select>
 						<font class="form-label">Masukkan Tahun</font>
-						<input type="number" min="0" step="1" class="form-control col-2" name="tahun" required maxlength="4">
+						<input type="number" min="2005" step="1" class="form-control col-2" name="tahun" required maxlength="4">
 						<hr>
 						<button type="submit" class="btn btn-primary">Cek</button>
 					</form>
@@ -113,8 +122,8 @@ if($_SESSION['status'] !="login"){
 			</div>
 			<div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
 				<div class="card-body">
-					<form action="laporan_konversi_tahunan.php" method="POST">
-						<input type="text" pattern="\d*" maxlength="4" title="max 4 karakter" required name="tahun" class="form-control col-3">
+					<form action="laporan_konversi_tahunan.php" method="GET">
+						<input type="number" min="2005" step="1" required name="tahun" class="form-control col-3">
 						<hr>
 						<button type="submit" class="btn btn-primary">Cek</button>
 					</form>

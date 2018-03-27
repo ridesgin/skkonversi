@@ -4,14 +4,12 @@ session_start();
 if($_SESSION['status'] !="login"){
 	header("location:warn.php");
 }
-			$tahun = $_POST['tahun']; 
-			setcookie($tahun);
-			$th = $_COOKIE['tahun'];
+
 ?>
 
 <html>
 <head>
-	<title>Laporan Konversi NIP | SK konversi NIP</title>
+	<title>Laporan Konversi NIP Pertahun | SK konversi NIP</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +29,7 @@ if($_SESSION['status'] !="login"){
 	<div class="card">
 		<div class="card-header">
 			<?php
-			include 'pagination2.php';
+			include 'pagination_tahun.php';
 
 
 
@@ -42,7 +40,7 @@ if($_SESSION['status'] !="login"){
 			$rpp = 10; // jumlah record per halaman
 
 			$db_link = mysqli_connect('localhost', 'root', '', 'mydb'); // sesuaikan username dan password mysqli anda
-
+			$tahun = $_GET['tahun'];
 			$sql = "SELECT * FROM konversi WHERE nip LIKE '%$q%' AND YEAR(tgl_input)='$tahun' ORDER BY id_konversi DESC"; // query pencarian silahkan disesuaikan
 			$result = mysqli_query($db_link, $sql); // eksekusi query
 
@@ -62,22 +60,28 @@ if($_SESSION['status'] !="login"){
 			}*/
 			?>
 			<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
-				<div class="input-group col-4">
-					<input type="text" class="form-control" placeholder="Cari berdasarkan NIP" name="q" value="<?php echo $q ?>">
-					<div class="input-group-append">
-						<?php
-						if ($q <> '')
-						{
-							?>
-							<a class="btn btn-warning" href="<?php echo $_SERVER['PHP_SELF'] ?>">Reset <i class="fa fa-times"></i></a>
-							<?php
-						}
-						?>
-						<button class="btn btn-primary" type="submit">Cari <i class="fa fa-search"></i></button>
+				<div class="row">
+					<div class="col-3">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Cari berdasarkan NIP" name="q" value="<?php echo $q ?>">
+							<div class="input-group-append">
+								<?php
+								if ($q <> '')
+								{
+									?>
+									<a class="btn btn-warning" href="<?php echo $_SERVER['PHP_SELF'] ?>">Reset <i class="fa fa-times"></i></a>
+									<?php
+								}
+								?>
+								<button class="btn btn-primary" type="submit">Cari <i class="fa fa-search"></i></button>
+							</div>
+						</div>
 					</div>
-				</div><strong class="float-right">Laporan per Tahun <?php echo $tahun;?></strong>
+					<div class="col">
+						<strong class="float-right">Laporan per Tahun <?php echo $tahun;?></strong>
+					</div>
+				</div>
 			</form>
-
 		</div>
 		<div class="card-block">
 			<div class="table-responsive-xl">
@@ -90,7 +94,7 @@ if($_SESSION['status'] !="login"){
 						<th hidden>Data Sebelum</th>
 						<th hidden>Data Sesudah</th>
 						<th>Keterangan</th>
-						<th style="width: 10%">Tanggal Input</th>
+						<th style="width: 8%">Tanggal Input</th>
 						<th style="width: 8rem;" class="text-center">Aksi</th>
 					</tr>
 					<?php
@@ -166,43 +170,14 @@ if($_SESSION['status'] !="login"){
 							</td>
 							<td>
 								<?php
-								if(empty($data['keterangan'])){
-									echo "<strong class='text-danger'>Pilih Aksi</strong";
-								}
-								$pisah=explode(":", $data['keterangan']);
-
-								if ($pisah[0] == 1){
-									echo "Bahan tidak Lengkap : ";
-								} else {
-									echo "";
-								};
-								if (empty($pisah[1])){
-									$pisah[1] = "";
-								} echo $pisah[1];
-								if ($pisah[0] == 2){
-									echo "Ralat SAPK";
-								} else {
-									echo "";
-								};
-
-								if ($pisah[0] == 3){
-									echo "Ralat Belum Cetak";
-								} else {
-									echo "";
-								};
-
-								if ($pisah[0] == 4){
-									echo "Cetak";
-								} else {
-									echo "";
-								};
+								echo $data['keterangan'];
 								?>
 							</td>
 							<td><?php echo $data['tgl_input']?></td>
 							<td align="center">
 								<div class="btn-group justify-content-center">
 									<?php
-									echo "<a href='#' class='btn btn-outline-info'><i class='fa fa-info-circle'></i></a>";
+									echo "<a href='tampil_konversi.php?id_konversi=" .$data['id_konversi']. "' class='btn btn-outline-info'><i class='fa fa-info-circle'></i></a>";
 									echo "<a href='update_konversi.php?id_konversi=" .$data['id_konversi']. "' class='btn btn-outline-primary'><i class='fa fa-pencil'></i></a>";
 									echo "<a href='hapus_konversi.php?id_konversi=" .$data['id_konversi']. "' onClick='return tanya()' class='btn btn-outline-danger'><i class='fa fa-trash'></i></a>";									
 									?>

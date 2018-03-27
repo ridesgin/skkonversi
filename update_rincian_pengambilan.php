@@ -54,7 +54,7 @@ $res = $sql->FETCH_ASSOC();
 							<?php $hasil = mysqli_query($connect, "SELECT * FROM pengguna"); ?>
 							<select type='text' id="nip" name='nip' class="form-control form-control-sm dropoi" onchange="isi_otomatis()" required>
 
-								<option value="<?php echo $row['nip'];?>"> <?php echo $res['nip'];?></option> 
+								<option value="<?php echo $res['nip'];?>"> <?php echo $res['nip'];?></option> 
 								<option disabled value>-- nip --</option>
 								<?php while($row = mysqli_fetch_assoc($hasil)){ ?>
 								<option value="<?php echo $row['nip'];?>"> <?php echo $row['nip'];?></option> 

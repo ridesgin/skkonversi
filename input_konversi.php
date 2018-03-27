@@ -170,6 +170,23 @@ if (isset($ambil['no_surat'])) {
 								</div>
 							</div>
 							<div class="garish"></div>
+							<div class="row">
+								<div class="col-3">
+									<label>Data Sebelum</label>
+								</div>
+								<div class="col">
+									<input class="form-control form-control-sm" name="data_sebelum">
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col-3">
+									<label>Data Sesudah</label>
+								</div>
+								<div class="col">
+									<input class="form-control form-control-sm" name="data_sesudah">
+								</div>
+							</div>
+							<div class="garish"></div>
 							<div class="row mb-2">
 								<div class="col-2">
 									<label for="keterangan">Keterangan</label>
@@ -204,15 +221,16 @@ if (isset($ambil['no_surat'])) {
 				<div class="table-responsive">
 					<table class="table-sm table-striped">
 						<tr class="bg-dark text-white" style="height: 30px;">
-							<th style="width: 4%" class="text-center">No</th>
-							<th>NIP</th>
+							<th style="width: 3%" class="text-center">No</th>
+							<th style="width: 5%">NIP</th>
 							<th>Nama</th>
 							<th>Jenis Ralat</th>
 							<th>Keterangan</th>
 							<th width="7%">Tanggal Input</th>
 							<th width="12%" class="text-center" hidden>Aksi</th>
-							<th class="text-center">Aksi 2</th>
-							<th width="12%" class="text-center">CRUD</th>
+							<th class="text-center">Status</th>
+							<th style="width: 9%" class="text-center">Proses Konversi</th>
+							<th style="width: 3%" class="text-center">CRUD</th>
 						</tr>
 						<?php
 						if (mysqli_num_rows($sql) > 0){
@@ -226,6 +244,19 @@ if (isset($ambil['no_surat'])) {
 								/* SELECT konversi.nip, pns.nama
 							    -> FROM konversi
 							    -> INNER JOIN pns ON konversi.nip = pns.nip;*/
+							    $sql5 = $connect->query("SELECT * FROM proses_konversi WHERE id_konversi = " . $row['id_konversi']);
+								$res = $sql5->fetch_assoc();
+
+								$sql6 = $connect->query("SELECT * FROM detil_pengambilan WHERE id_konversi = " . $row['id_konversi']);
+								$res2 = $sql6->fetch_assoc();
+
+								if ($res2['id_konversi'] == $row['id_konversi']) {
+									$sts = "<i class='text-success'>Ambil</i>";
+								} elseif ($res['id_konversi'] == $row['id_konversi']) {
+									$sts = "<b class='text-info'>Proses</b>";
+								} else {
+									$sts = "<strong class='text-danger'>---</strong>";
+								}
 						?>
 						<tr>
 							<td class="text-center"><?php echo $no++ ?></td>
@@ -252,6 +283,7 @@ if (isset($ambil['no_surat'])) {
 								?>
 							</td>
 							<td><?php echo $row['tgl_input']?></td>
+							<td class="text-center"><?php echo $sts ?></td>
 							<td align="center" hidden>
 								<button id="btnGroupDrop1" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Pilih Aksi

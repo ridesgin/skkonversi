@@ -4,10 +4,19 @@
 	if($_SESSION['status'] !="login"){
 		header("location:warn.php");
 }
-$sql = $connect->query("SELECT *, pns.nip FROM konversi INNER JOIN pns ON konversi.nip = pns.nip WHERE konversi.id_konversi = " . $_GET['id_konversi']);
+$id_pengambilan = $_GET['id_pengambilan'];
+$query = $connect->query("SELECT * FROM detil_pengambilan INNER JOIN pengambilan ON pengambilan.id_pengambilan = detil_pengambilan.id_pengambilan WHERE detil_pengambilan.id_pengambilan = $id_pengambilan");
+$re = $query->FETCH_ASSOC();
+
+$query2 = $connect->query("SELECT * FROM pengguna INNER JOIN pns ON pns.nip = pengguna.nip WHERE pengguna.uid =" . $re['uid']);
+$re2 = $query2->fetch_assoc();
+/*echo $id_pengambilan;
+echo "-" . $re['id_konversi'];*/
+
+$sql = $connect->query("SELECT *, pns.nip FROM konversi INNER JOIN pns ON konversi.nip = pns.nip WHERE konversi.id_konversi = " . $re['id_konversi']);
 $res = $sql->fetch_assoc();
 
-$sql2 = $connect->query("SELECT * FROM proses_konversi INNER JOIN konversi ON proses_konversi.id_konversi = konversi.id_konversi WHERE proses_konversi.id_konversi = " . $_GET['id_konversi']);
+$sql2 = $connect->query("SELECT * FROM proses_konversi INNER JOIN konversi ON proses_konversi.id_konversi = konversi.id_konversi WHERE proses_konversi.id_konversi = " . $re['id_konversi']);
 $res2 = $sql2->fetch_assoc();
 
 if ($res['jenis_ralat'] == 1){
@@ -59,7 +68,7 @@ if (is_null($res['nip'])){
 ?>
 <html>
 <head>
-	<title>Input Surat Pengantar | SK Konversi NIP</title>
+	<title>Tampil Pengambilan | SK Konversi NIP</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,16 +82,58 @@ if (is_null($res['nip'])){
 		label, li{
 			font-size: 1.3em;
 		}
+		.gr{
+			margin: 0.5rem 0;
+			border: 0;
+  			border-top: 1px solid rgba(0, 0, 0, 0.1);
+		}
 	</style>
 </head>
 	<?php require 'head.php'; ?>
-	<div class="container mar col-9">
-		<h1 class="text-center display-4 mt-2">Tampil Konversi</h1>
-		<div class="alert alert-danger text-center" role="alert" <?php echo $atr ?>>
-			<i class="fa fa-exclamation-triangle"></i> Tidak ada data yang terkait / ada kesalahan <i class="fa fa-exclamation-triangle"></i>
-		</div>
+	<div class="container mar col-9" style="margin-bottom: 4rem;">
+		<h1 class="display-4 text-center">Tampil Pengambilan</h1>
 		<div class="card">
 			<div class="card-block">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<label>Tanggal Pengambilan</label>
+						</div>
+						<div class="col">
+							<label><?php echo $re['tanggal_pengambilan'] ?></label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<label>NIP Pengambil</label>
+						</div>
+						<div class="col">
+							<label><?php echo $re2['nip'] ?></label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<label>Pengambil</label>
+						</div>
+						<div class="col">
+							<label><?php echo $re2['nama'] ?></label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<label>Keterangan</label>
+						</div>
+						<div class="col">
+							<label><?php echo $re['keterangan'] ?></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="gr"></div>
+		<h3 class="text-center">Data Yang diambil</h3>
+		<div class="card">
+			<div class="card">
 				<div class="container">
 					<div class="row">
 						<div class="col">
@@ -178,9 +229,6 @@ if (is_null($res['nip'])){
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card-footer">
-				<a onclick="window.history.go(-1); return false;" class="btn btn-warning">Kembali <i class="fa fa-reply"></i></a>
 			</div>
 		</div>
 	</div>

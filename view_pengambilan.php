@@ -23,8 +23,6 @@
 		<h1 class="text-center display-4 mb-2">Pengambilan</h1>
 		<div class="card">
 			<div class="card-header">
-				<a href="input_rincian_pengambilan.php" class="btn btn-primary float-right">Tambah <i class="fa fa-plus"></i></a>
-			</div>
 			<?php
 			include 'pagination2.php';
 
@@ -47,17 +45,41 @@
 			$reload = $_SERVER['PHP_SELF'] . "?q=" . $q . "&amp;adjacents=" . $adjacents; // untuk link ke halaman lain
 			//pagination config end
 			?>
+				<div class="row">
+					<div class="col-4">
+						<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="Cari Kode Tamu" name="q" value="<?php echo $q ?>">
+								<div class="input-group-append">
+									<?php
+									if ($q <> '')
+									{
+										?>
+										<a class="btn btn-warning" href="<?php echo $_SERVER['PHP_SELF'] ?>">Reset <i class="fa fa-times"></i></a>
+										<?php
+									}
+									?>
+									<button class="btn btn-primary" type="submit">Cari <i class="fa fa-search"></i></button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col">
+						<a href="input_rincian_pengambilan.php" class="btn btn-primary float-right">Tambah <i class="fa fa-plus"></i></a>
+					</div>
+				</div>
+			</div>
 			<div class="card-block">
 				<div class="table-responsive">
-					<table class="table-sm table-hover table-striped">
+					<table class="table-sm table-hover">
 						<tr class="bg-dark text-white" style="height: 40px;">
 							<th class="text-center">No</th>
 							<th>Tanggal Pengambilan</th>
 							<th>NIP</th>
 							<th>Nama Pengambil</th>
 							<th>Keterangan</th>
+							<th class="text-center">Ambil</th>
 							<th class="text-center">Aksi</th>
-							<th class="text-center">crud</th>
 						</tr>
 						<?php
 						if (mysqli_num_rows($result) > 0){
@@ -65,10 +87,17 @@
 							
 							mysqli_data_seek($result, $i);
 							$data = mysqli_fetch_array($result);
-							/*$sql5 = $connect->query("SELECT nama FROM pns WHERE nip=".$data['nip']);
-							$row5 = $sql5->fetch_assoc();*/
+							$sql2 = $connect->query("SELECT * FROM detil_pengambilan WHERE id_pengambilan = " . $data['id_pengambilan']);
+							$res = $sql2->fetch_assoc();
+							if ($data['id_pengambilan'] == $res['id_pengambilan'] ) {
+								$atr = "table-success";
+								$atr2 = "";
+							} else {
+								$atr = "";
+								$atr2 = "disabled";
+							};
 							?>
-							<tr>
+							<tr class="<?php echo $atr ?>">
 								<td class="text-center"><?php echo ++$no_urut; ?></td>
 								<td><?php echo $data['tanggal_pengambilan'];?></td>
 								<td><?php echo $data['nip']?>	
@@ -81,15 +110,15 @@
 							</td>
 							<td align="center">
 								<?php
-								echo "<a href='input_detail_pengambilan.php?id_pengambilan=" .$data['id_pengambilan']. "'class='btn btn-primary'><i class='fa fa-plus'></i></a>";									
+								echo "<a href='input_detail_pengambilan.php?id_pengambilan=" .$data['id_pengambilan']. "'class='btn btn-success'><i class='fa fa-archive'></i></a>";									
 								?>
 							</td>
 							<td align="center">
 								<div class="btn-group justify-content-center">
 									<?php
-									echo "<a href='#' class='btn btn-info'><i class='fa fa-info-circle'></i></a>";
+									echo "<a href='tampil_pengambilan.php?id_pengambilan=" .$data['id_pengambilan']. "' class='btn btn-info $atr2'><i class='fa fa-info-circle'></i></a>";
 									echo "<a href='update_rincian_pengambilan.php?id_pengambilan=" .$data['id_pengambilan']. "' class='btn btn-primary'><i class='fa fa-pencil'></i></a>";
-									echo "<a href='delete_pengambilan.php?id_pengambilan=" .$data['id_pengambilan']. "' onClick='return tanya()' class='btn btn-danger'><i class='fa fa-trash'></i></a>";									
+									/*echo "<a href='delete_pengambilan.php?id_pengambilan=" .$data['id_pengambilan']. "' onClick='return tanya()' class='btn btn-danger'><i class='fa fa-trash'></i></a>";*/
 									?>
 								</div>
 							</td>
