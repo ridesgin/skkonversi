@@ -1,0 +1,134 @@
+body{
+}
+
+* {
+	font-size: 13px;
+}
+.jam{
+	z-index: 1000;
+	position: absolute;
+	top: 20px;
+	right: 10%;
+	opacity: 0.8;
+}
+/*.bg-oi{
+	background:rgba(255,255,255, 0.5) ;
+}*/
+#bg {
+	background: url(../images/bg.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	position: relative;
+	background-color: #F7F7F7;
+}
+.center{
+	text-align: center;
+}
+
+tr.tab{
+	background-color: #4d4d4d;
+	color: white;
+}
+table{
+	width: 100%;
+}
+
+tr.in:nth-child(even) {background-color: #f2f2f2;}
+
+.mar{
+	padding-top: 3.5rem;
+	position: relative;
+}
+
+.cent{
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: flex;
+	-ms-flex-align: center;
+	-ms-flex-pack: center;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+.form-signin {
+	width: 100%;
+	max-width: 330px;
+	margin: 0 auto;
+}
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="username"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+.form-signin input[type="text"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+.form-signin .form-control {
+	position: relative;
+	box-sizing: border-box;
+	height: auto;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.logo{
+	height: auto;
+	width: 20%;
+	display: flex;
+	margin-top: 2rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+.log{
+	height: auto;
+	width: 20%;
+	display: flex;
+	margin-left:auto;
+	margin-right: auto;
+	position: absolute;
+	z-index: 10;
+}
+
+.animate{position:relative;animation:animatetop 1s}@keyframes animatetop{from{top:-300px;opacity:0} to{top:0;opacity:1}}
+.zoom {animation:animatezoom 1s}@keyframes animatezoom{from{transform:scale(0)} to{transform:scale(1)}}
+
+.f-fading{animation:fading 2s infinite}@keyframes fading{0%{opacity:0.5}50%{opacity:1}100%{opacity:0.5}}
+.f-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}
+
+.typewriter {
+	overflow: hidden; /* Ensures the content is not revealed until the animation */
+	white-space: nowrap; /* Keeps the content on a single line */
+	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+	animation: 
+	typing 3.5s steps(30, end),
+	blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+	from { width: 0 }
+	to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+	from, to { border-color: transparent }
+	50% { border-color: orange }
+}
