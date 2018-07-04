@@ -25,28 +25,28 @@
 					<table class="table-sm">
 						<tr>
 							<th width="35%">Kode Tamu</th>
-							<th width="100%"><input type='text' name='kode_tamu' class="form-control form-control-sm col-md-4" placeholder="kode tamu"></th>
+							<th width="100%"><input type='text' name='kode_tamu' class="form-control form-control-sm col-md-4" placeholder="kode tamu" required></th>
 						</tr>
 						<tr>
 							<td>Nomor Surat</td>
-							<td width="100%"><input type="text" name="no_surat" class="form-control form-control-sm col-md-5" placeholder="Nomer Surat"></td>
+							<td width="100%"><input type="text" name="no_surat" class="form-control form-control-sm col-md-5" placeholder="Nomer Surat" required></td>
 						</tr>
 						<tr>
 							<td>Tanggal Surat</td>
-							<td><input type="date" name="tgl_surat" class="form-control form-control-sm col-md-3" placeholder="Tanggal Surat"></td>
+							<td><input type="date" name="tgl_surat" class="form-control form-control-sm col-md-3" placeholder="Tanggal Surat" required></td>
 						</tr>
-						<div class="form-inline right" style="position: absolute; top: 118px; left: 760px;">jumlah Lampiran : <input type="number" name="jumlah_lampiran" class="form-control form-control-sm col-3"></div>
+						<div class="form-inline right" style="position: absolute; top: 118px; left: 760px;">jumlah Lampiran : <input type="number" name="jumlah_lampiran" class="form-control form-control-sm col-3" required></div>
 						<tr>
 							<td>Instansi</td>
 							<td>
 								<?php $hasil = mysqli_query($connect, "SELECT id_instansi,  nama_instansi FROM instansi"); ?>
 
-								<input type='text' list='KodeInstansi' name='id_instansi'  placeholder="Instansi" class="form-control form-control-sm col-md-6" >
+								<input type='text' list='KodeInstansi' name='id_instansi'  placeholder="Instansi" class="form-control form-control-sm col-md-6" required>
 								<datalist id='KodeInstansi'>
 
 								<?php while($row = mysqli_fetch_assoc($hasil)){ ?>
 
-									<option value="<?php echo $row['id_instansi']; ?>"> <?php echo $row['nama_instansi'];?></option> 
+									<option value="<?php echo $row['nama_instansi'];?>"> <?php echo $row['nama_instansi'];?></option> 
 
 								<?php } ?>
 								</datalist>
@@ -54,11 +54,11 @@
 						</tr>
 						<tr>
 							<td>Jabatan Spesimen</td>
-							<td><input type="text" name="jabatan_spesimen" class="form-control form-control-sm col-md-4" placeholder="Jabatan"></td>
+							<td><input type="text" name="jabatan_spesimen" class="form-control form-control-sm col-md-4" placeholder="Jabatan" required></td>
 						</tr>
 						<tr>
 							<td>NIP Spesimen</td>
-							<td><input id="nip" type="text" name="nip_spesimen" class="form-control form-control-sm col-md-4" onkeyup="isi_otomatis()" placeholder="NIP"></td>
+							<td><input id="nip" type="text" name="nip_spesimen" class="form-control form-control-sm col-md-4" onkeyup="isi_otomatis()" placeholder="NIP" required></td>
 						</tr>
 						<tr>
 							<td>Nama Spesimen</td>
@@ -66,7 +66,7 @@
 						</tr>
 						<tr>
 							<td>Jumlah usulan ralat SK Konversi NIP</td>
-							<td><input type="number" name="jml_usulan" class="form-control form-control-sm col-md-2" ></td>
+							<td><input type="number" name="jml_usulan" class="form-control form-control-sm col-md-2" required></td>
 						</tr>
 					</table>
 				</div>
@@ -79,7 +79,7 @@
 			</div>
 		</div>
 	</form>
-<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="js/jquery-2.2.4.min.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	function isi_otomatis(){

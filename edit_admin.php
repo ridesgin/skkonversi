@@ -79,12 +79,19 @@ $row = $sql->fetch_assoc();
 					</div>
 				</div>
 				<div class="card-footer">
-					<input type="submit" name="submit" value="input" class="btn btn-lg btn-outline-success btn-block">
+					<div class="row">
+						<div class="col">
+							<a onclick="window.location='view_admin.php'" class="btn btn-warning btn-block">Kembali <i class="fa fa-reply"></i></a>
+						</div>
+						<div class="col">
+							<input type="submit" name="submit" value="input" class="btn btn-success btn-block">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</form>
-<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-2.2.4.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

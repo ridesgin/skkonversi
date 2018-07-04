@@ -24,115 +24,134 @@ if($_SESSION['status'] !="login"){
 		<div class="card">
 			<div class="card-header">
 				<a href="input_surat_pengantar.php" class="btn btn-success float-right"><i class="fa fa-plus"></i> Tambah surat pengantar</a>
-			<?php
-//        includekan fungsi paginasi
-//        silahkan di komen atau di hapus saja baris yang tidak ingin digunakan
-		//include 'pagination1.php';
-		include 'pagination2.php';
-		//include 'pagination3.php';
-		//include 'pagination4.php';
-		//include 'pagination5.php';
+				<?php
+				//includekan fungsi paginasi
+				//silahkan di komen atau di hapus saja baris yang tidak ingin digunakan
+				//include 'pagination1.php';
+				include 'pagination2.php';
+				//include 'pagination3.php';
+				//include 'pagination4.php';
+				//include 'pagination5.php';
 
-//      pagination config start
-		$q = isset($_REQUEST['q']) ? urldecode($_REQUEST['q']) : ''; // untuk keyword pencarian
-		$page = isset($_GET['page']) ? intval($_GET['page']) : 1; // untuk nomor halaman
-		$adjacents = isset($_GET['adjacents']) ? intval($_GET['adjacents']) : 3; // khusus style pagination 2 dan 3
-		$rpp = 10; // jumlah record per halaman
+				//pagination config start
+				$q = isset($_REQUEST['q']) ? urldecode($_REQUEST['q']) : ''; // untuk keyword pencarian
+				$page = isset($_GET['page']) ? intval($_GET['page']) : 1; // untuk nomor halaman
+				$adjacents = isset($_GET['adjacents']) ? intval($_GET['adjacents']) : 3; // khusus style pagination 2 dan 3
+				$rpp = 10; // jumlah record per halaman
 
-		$db_link = mysqli_connect('localhost', 'root', '', 'mydb'); // sesuaikan username dan password mysqli anda
-		$sql = "SELECT * FROM pengantar WHERE kode_tamu LIKE '%$q%' ORDER BY id_pengantar DESC"; // query pencarian silahkan disesuaikan
-		$result = mysqli_query($db_link, $sql); // eksekusi query
+				$db_link = mysqli_connect('localhost', 'root', '', 'mydb'); // sesuaikan username dan password mysqli anda
+				$sql = "SELECT * FROM pengantar WHERE kode_tamu LIKE '%$q%' ORDER BY id_pengantar DESC"; // query pencarian silahkan disesuaikan
+				$result = mysqli_query($db_link, $sql); // eksekusi query
 
-		$tcount = mysqli_num_rows($result); // jumlah total baris
-		$tpages = isset($tcount) ? ceil($tcount / $rpp) : 1; // jumlah total halaman
-		$count = 0; // untuk paginasi
-		$i = ($page - 1) * $rpp; // batas paginasi
-		$no_urut = ($page - 1) * $rpp; // nomor urut
-		$reload = $_SERVER['PHP_SELF'] . "?q=" . $q . "&amp;adjacents=" . $adjacents; // untuk link ke halaman lain
-//        pagination config end
-		?>
-		<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
-			<div class="input-group col-3">
-				<input type="text" class="form-control" placeholder="Cari Kode Tamu" name="q" value="<?php echo $q ?>">
-				<div class="input-group-append">
-					<?php
-					if ($q <> '')
-					{
-						?>
-						<a class="btn btn-warning" href="<?php echo $_SERVER['PHP_SELF'] ?>">Reset <i class="fa fa-times"></i></a>
-						<?php
-					}
-					?>
-					<button class="btn btn-primary" type="submit">Cari <i class="fa fa-search"></i></button>
-				</div>
-			</div>
-		</form>
-		</div>
-			<div class="card-block">
-		<div>
-			<!--tabel-->
-			<div class="row">
-				<div class="col-md-12">
-					<div class="table-responsive">
-						<table class="table-sm table-striped">
-							<thead class="bg-dark text-white">
-								<tr>
-									<th style="width:4%" class="text-center">No</th>
-									<th>Kode Tamu</th>
-									<th>No Surat</th>
-									<th>Tanggal Surat</th>
-									<th>Instansi</th>
-									<th>NIP Spesimen</th>
-									<th>Jumlah Usulan</th>
-									<th>Aksi (konversi)</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php
-								while (($count < $rpp) && ($i < $tcount)) {
-									mysqli_data_seek($result, $i);
-									$data = mysqli_fetch_array($result);
-									?>
-									<tr>
-										<td class="text-center">
-											<?php echo ++$no_urut; ?> 
-										</td>
+				$tcount = mysqli_num_rows($result); // jumlah total baris
+				$tpages = isset($tcount) ? ceil($tcount / $rpp) : 1; // jumlah total halaman
+				$count = 0; // untuk paginasi
+				$i = ($page - 1) * $rpp; // batas paginasi
+				$no_urut = ($page - 1) * $rpp; // nomor urut
+				$reload = $_SERVER['PHP_SELF'] . "?q=" . $q . "&amp;adjacents=" . $adjacents; // untuk link ke halaman lain
+				//pagination config end
 
-										<td>
-											<?php echo $data ['kode_tamu']; ?> 
-										</td>
-										<td>
-											<?php echo $data ['no_surat']; ?> 
-										</td>
-										<td>
-											<?php echo $data ['tgl_surat']; ?> 
-										</td>
-										<td>
-											<?php echo $data ['id_instansi']; ?> 
-										</td>
-										<td>
-											<?php echo $data ['nip_spesimen']; ?> 
-										</td>
-										<td>
-											<?php echo $data ['jml_usulan']; ?> 
-										</td>
-										<td width="120px" class="text-center">
-											<?php
-											echo "<a href='input_konversi.php?no_surat=" .$data['no_surat']. "&kode_tamu=" .$data['kode_tamu']. "&id_pengantar=" .$data['id_pengantar']."' class='btn btn-sm btn-primary'><i class='fa fa-pencil'></i> Input</a>";
-											?>
-										</td>
-									</tr>
-									<?php
-									$i++;
-									$count++;
-								}
+				?>
+				<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
+					<div class="input-group col-3">
+						<input type="text" class="form-control" placeholder="Cari Kode Tamu" name="q" value="<?php echo $q ?>">
+						<div class="input-group-append">
+							<?php
+							if ($q <> '')
+							{
 								?>
-							</tbody>
-						</table>
+								<a class="btn btn-warning" href="<?php echo $_SERVER['PHP_SELF'] ?>">Reset <i class="fa fa-times"></i></a>
+								<?php
+							}
+							?>
+							<button class="btn btn-primary" type="submit">Cari <i class="fa fa-search"></i></button>
+						</div>
 					</div>
+				</form>
+			</div>
+			<div class="card-block">
+				<div class="table-responsive">
+					<table class="table-sm table-hover">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th style="width:4%" class="text-center">No</th>
+								<th>Kode Tamu</th>
+								<th>No Surat</th>
+								<th>Tanggal Surat</th>
+								<th>Instansi</th>
+								<th>NIP Spesimen</th>
+								<th>Jumlah Usulan</th>
+								<th align="center" class="text-center">Konversi</th>
+								<th align="center" class="text-center">Aksi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							while (($count < $rpp) && ($i < $tcount)) {
+							mysqli_data_seek($result, $i);
+							$data = mysqli_fetch_array($result);
+
+							//$sql3 = mysqli_query($db_link, "SELECT konversi.id_pengantar, pengantar.jml_usulan FROM konversi INNER JOIN where id_pengantar = '".$data['jml_usulan']."'");
+							//$row3 = mysqli_num_rows($sql3);
+
+							$ins = $connect->query("SELECT * FROM instansi WHERE id_instansi = " . $data['id_instansi']);
+							$in = $ins->fetch_assoc();
+
+							$sqli = mysqli_query($connect, "SELECT * FROM konversi where id_pengantar = " .$data['id_pengantar']);
+							$dataa = mysqli_num_rows($sqli);
+								if ($dataa == $data['jml_usulan']){
+									$woy = "";
+								} else {
+									$woy = "table-warning";
+								}
+							?>
+							<tr class="<?php echo $woy ?>">
+								<td class="text-center">
+									<?php echo ++$no_urut?> 
+								</td>
+
+								<td>
+									<?php echo $data ['kode_tamu']; ?> 
+								</td>
+								<td>
+									<?php echo $data ['no_surat']; ?> 
+								</td>
+								<td>
+									<?php echo $data ['tgl_surat']; ?> 
+								</td>
+								<td>
+									<?php echo $in['nama_instansi']; ?> 
+								</td>
+								<td>
+									<?php echo $data ['nip_spesimen']; ?> 
+								</td>
+								<td>
+									<?php echo $data ['jml_usulan'] . "/" . $dataa;?> 
+								</td>
+								<td width="120px" align="center">
+									<?php
+									echo "<a data-toggle='tooltip' data-placement='top' title='Input Konversi NIP' href='input_konversi.php?no_surat=" .$data['no_surat']. "&kode_tamu=" .$data['kode_tamu']. "&id_pengantar=" .$data['id_pengantar']."' class='btn btn-sm btn-primary'><i class='fa fa-pencil'></i> Input</a>";
+									?>
+								</td>
+								<td width="120px" align="center">
+									<div class="btn-group">
+										<?php
+										echo "<a data-toggle='tooltip' data-placement='left' title='View data' href='#' class='btn btn-outline-info'><i class='fa fa-info-circle'></i></a>";
+										echo "<a data-toggle='tooltip' data-placement='top' title='Ubah data' href='update_surat_pengantar.php?id_pengantar=" .$data['id_pengantar']. "' class='btn btn-outline-primary'><i class='fa fa-pencil'></i></a>";
+										echo "<a data-toggle='tooltip' data-placement='bottom' title='Hapus data' href='delete_pengantar.php?id_pengantar=" .$data['id_pengantar']. "'onClick='return tanya()' class='btn btn-outline-danger'><i class='fa fa-trash'></i></a>";
+										?>
+									</div>
+								</td>
+							</tr>
+							<?php
+							$i++;
+							$count++;
+							}
+							?>
+						</tbody>
+					</table>
 				</div>
 			</div>
-
 			<div class="card-footer">
 				<div class="row">
 					<div class="col-md-12">
@@ -149,20 +168,22 @@ if($_SESSION['status'] !="login"){
 	</div>
 </form>
 <!--harviacode.com-->
-<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.bundle.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-            function isi_otomatis(){
-                var nip = $("#nip").val();
-                $.ajax({
-                    url: 'ajax.php',
-                    data:"nip="+nip ,
-                }).success(function (data) {
-                    var json = data,
-                    obj = JSON.parse(json);
-                    $('#nama').val(obj.nama);
-                });
-            }
+	function isi_otomatis(){
+		var nip = $("#nip").val();
+		$.ajax({
+			url: 'ajax.php',
+			data:"nip="+nip ,
+		}).success(function (data) {
+			var json = data,
+			obj = JSON.parse(json);
+			$('#nama').val(obj.nama);
+		});
+	}
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
 </script>
 </body>
-</html>
